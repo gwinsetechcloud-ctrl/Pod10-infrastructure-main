@@ -1,0 +1,41 @@
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+crash.log
+override.tf
+*_override.tf
+
+# Terraform variables - contains sensitive values
+terraform.tfvars
+*.tfvars
+
+# Environment files
+.env
+*.env
+
+# AWS credentials
+.aws/
+credentials
+
+# SSH keys
+*.pem
+*.key
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Temp files
+tmp/
+temp/
