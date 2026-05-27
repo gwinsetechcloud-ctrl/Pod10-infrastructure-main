@@ -1,5 +1,6 @@
 resource "aws_security_group" "mysql_sg" {
-  name        = "${var.environment}-mysql-sg"
+  # name        = "${var.environment}-mysql-sg"
+  name        = "pod10-${var.environment}-mysql-sg"
   description = "Security group for MySQL database"
   vpc_id      = aws_vpc.vpc-main.id
 

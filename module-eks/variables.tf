@@ -107,5 +107,5 @@ variable "domain-name" {
 variable "email" {
   description = "Email address for notifications and certificates"
   type        = string
-  default     = "elizabethik135@gmail.com"
+  default     = "gwinsetech@gmail.com"
 }

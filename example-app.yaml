@@ -45,10 +45,10 @@ spec:
   ingressClassName: external-nginx
   tls:
   - hosts:
-    - bank.pod13fintech.online
-    secretName: bank-pod13fintech-online
+    - bank.gwinseapptest.online
+    secretName: bank-gwinseapptest-online
   rules:
-  - host: bank.pod13fintech.online
+  - host: bank.gwinseapptest.online
     http:
       paths:
       - path: /

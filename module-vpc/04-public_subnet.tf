@@ -16,11 +16,12 @@ resource "aws_subnet" "public_subnet" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name                                                           = "${var.environment}-public-subnet-${count.index + 1}-${data.aws_availability_zones.available.names[count.index]}"
+    # Name                                                           = "${var.environment}-public-subnet-${count.index + 1}-${data.aws_availability_zones.available.names[count.index]}"
+    Name                                                           = "pod10-${var.environment}-public-subnet-${count.index + 1}-${data.aws_availability_zones.available.names[count.index]}"
     Environment                                                    = var.environment
     "kubernetes.io/cluster/eks"                                    = "1"
     "kubernetes.io/role/elb"                                       = "1"
-    "kubernetes.io/cluster/${var.environment}-${var.cluster_name}" = "owned"
+    "kubernetes.io/cluster/pod10-${var.environment}-${var.cluster_name}" = "owned"
   }
 }
 

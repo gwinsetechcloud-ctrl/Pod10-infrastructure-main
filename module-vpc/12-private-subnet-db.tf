@@ -8,10 +8,11 @@ resource "aws_subnet" "private_subnet_db" {
   #map_public_ip_on_launch = true
 
   tags = {
-    Name                                                           = "${var.environment}-private-subnet-db-${count.index + 1}-${data.aws_availability_zones.available.names[count.index]}"
+    # Name                                                           = "${var.environment}-private-subnet-db-${count.index + 1}-${data.aws_availability_zones.available.names[count.index]}"
+    Name                                                           = "pod10-${var.environment}-private-subnet-db-${count.index + 1}-${data.aws_availability_zones.available.names[count.index]}"
     Environment                                                    = var.environment
     "kubernetes.io/cluster/eks"                                    = "shared"
     "kubernetes.io/role/internal-elb"                              = "1"
-    "kubernetes.io/cluster/${var.environment}-${var.cluster_name}" = "owned"
+    "kubernetes.io/cluster/pod10-${var.environment}-${var.cluster_name}" = "owned"
   }
 }

@@ -7,7 +7,7 @@ variable "environment" {
 variable "domain-name" {
   description = "Domain name to be created"
   type        = string
-  default     = "pod13fintech.online"
+  default     = "gwinseapptest.online"
 }
 
 variable "nginx_ingress_lb_dns" {

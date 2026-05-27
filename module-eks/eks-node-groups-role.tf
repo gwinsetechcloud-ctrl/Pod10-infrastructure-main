@@ -1,5 +1,6 @@
 resource "aws_iam_role" "eks_node_group_role" {
-  name = "${var.environment}-eks-node_group-role"
+  # name = "${var.environment}-eks-node_group-role"
+  name = "pod10-${var.environment}-eks-node_group-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -15,7 +16,8 @@ resource "aws_iam_role" "eks_node_group_role" {
   })
 
   tags = {
-    Name        = "${var.environment}-eks-node_group-role"
+    # Name        = "${var.environment}-eks-node_group-role"
+    Name        = "pod10-${var.environment}-eks-node_group-role"
     Environment = var.environment
   }
 

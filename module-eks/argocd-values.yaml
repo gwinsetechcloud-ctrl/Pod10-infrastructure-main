@@ -6,11 +6,11 @@ server:
     enabled: true
     ingressClassName: external-nginx
     hosts:
-      - argocd.pod13fintech.online
+      - argocd.gwinseapptest.online
     tls:
-      - secretName: argocd-pod13fintech-online
+      - secretName: argocd-gwinseapptest-online
         hosts:
-          - argocd.pod13fintech.online
+          - argocd.gwinseapptest.online
 
 configs:
   params:

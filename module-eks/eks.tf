@@ -1,5 +1,6 @@
 resource "aws_eks_cluster" "eks" {
-  name     = "${var.environment}-${var.cluster_name}"
+  # name     = "${var.environment}-${var.cluster_name}"
+  name     = "pod10-${var.environment}-${var.cluster_name}"
   role_arn = aws_iam_role.eks_cluster_role.arn
   version  = var.eks_version
   vpc_config {
@@ -13,7 +14,8 @@ resource "aws_eks_cluster" "eks" {
     aws_iam_role_policy_attachment.eks_vpc_resource_controller_policy
   ]
   tags = {
-    Name        = "${var.environment}-${var.cluster_name}"
+    # Name        = "${var.environment}-${var.cluster_name}"
+    Name        = "pod10-${var.environment}-${var.cluster_name}"
     Environment = var.environment
   }
 }

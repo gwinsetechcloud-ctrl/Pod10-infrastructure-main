@@ -1,8 +1,10 @@
 resource "aws_db_subnet_group" "mysql_subnet_group" {
-  name       = "${var.environment}-mysql-subnet-group"
+  # name       = "${var.environment}-mysql-subnet-group"
+  name       = "pod10-${var.environment}-mysql-subnet-group"
   subnet_ids = var.private_subnet_db_ids
   tags = {
-    Name        = "${var.environment}-mysql-subnet-group"
+    # Name        = "${var.environment}-mysql-subnet-group"
+    Name        = "pod10-${var.environment}-mysql-subnet-group"
     Environment = var.environment
   }
 }
@@ -25,7 +27,8 @@ resource "aws_db_instance" "mysql_db_instance" {
   deletion_protection     = false
 
   tags = {
-    Name        = "${var.environment}-mysql-db-instance"
+    # Name        = "${var.environment}-mysql-db-instance"
+    Name        = "pod10-${var.environment}-mysql-db-instance"
     Environment = var.environment
   }
 

@@ -5,7 +5,8 @@ resource "aws_vpc" "vpc-main" {
   enable_dns_hostnames             = true
   assign_generated_ipv6_cidr_block = false
   tags = {
-    Name        = "${var.environment}-vpc"
+    # Name        = "${var.environment}-vpc"
+    Name        = "pod10-${var.environment}-vpc"
     Environment = var.environment
   }
 }

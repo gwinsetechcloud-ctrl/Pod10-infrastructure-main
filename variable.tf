@@ -83,13 +83,13 @@ variable "label_one" {
 variable "zone_name" {
   description = "Name of the DNS zone"
   type        = string
-  default     = "pod13fintech.online"
+  default     = "gwinseapptest.online"
 }
 
 variable "domain-name" {
   description = "Domain name to be created"
   type        = string
-  default     = "pod13fintech.online"
+  default     = "gwinseapptest.online"
 }
 
 variable "db_instance_class" {
@@ -119,7 +119,7 @@ variable "db_password" {
 variable "db_name" {
   description = "Database name"
   type        = string
-  default     = "pod13fintech_db"
+  default     = "pod10fintech_db"
 }
 
 variable "cluster_name" {
@@ -137,5 +137,5 @@ variable "repository_name" {
 variable "email" {
   description = "Email address for notifications and certificates"
   type        = string
-  default     = "elizabethik135@gmail.com"
+  default     = "gwinsetech@gmail.com"
 }

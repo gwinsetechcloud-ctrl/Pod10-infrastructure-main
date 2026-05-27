@@ -11,10 +11,10 @@ spec:
   ingressClassName: external-nginx
   tls:
   - hosts:
-    - argocd.pod13fintech.online
-    secretName: argocd-pod13fintech-online
+    - argocd.gwinseapptest.online
+    secretName: argocd-gwinseapptest-online
   rules:
-  - host: argocd.pod13fintech.online
+  - host: argocd.gwinseapptest.online
     http:
       paths:
       - path: /

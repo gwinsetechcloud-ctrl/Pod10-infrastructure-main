@@ -1,7 +1,8 @@
 # This Terraform configuration creates an IAM role for an EKS cluster
 # and attaches the necessary policies to allow the cluster to function properly.
 resource "aws_iam_role" "eks_cluster_role" {
-  name = "${var.environment}-eks-cluster-role"
+  # name = "${var.environment}-eks-cluster-role"
+  name = "pod10-${var.environment}-eks-cluster-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -16,7 +17,8 @@ resource "aws_iam_role" "eks_cluster_role" {
     ]
   })
   tags = {
-    Name        = "${var.environment}-eks-cluster-role"
+    # Name        = "${var.environment}-eks-cluster-role"
+    Name        = "pod10-${var.environment}-eks-cluster-role"
     Environment = var.environment
   }
 }

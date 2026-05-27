@@ -3,7 +3,8 @@ resource "aws_route_table" "private_route_table" {
   vpc_id = aws_vpc.vpc-main.id
 
   tags = {
-    Name        = "${var.environment}-private-route-table-${count.index + 1}"
+    # Name        = "${var.environment}-private-route-table-${count.index + 1}"
+    Name        = "pod10-${var.environment}-private-route-table-${count.index + 1}"
     Environment = var.environment
   }
 }

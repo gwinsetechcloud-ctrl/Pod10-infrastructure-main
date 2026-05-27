@@ -1,6 +1,7 @@
 resource "aws_eks_node_group" "eks_node_group" {
   cluster_name    = aws_eks_cluster.eks.id
-  node_group_name = "${var.environment}-eks-node-group"
+  # node_group_name = "${var.environment}-eks-node-group"
+  node_group_name = "pod10-${var.environment}-eks-node-group"
   node_role_arn   = aws_iam_role.eks_node_group_role.arn
   subnet_ids      = concat(var.public_subnet_ids, var.private_subnet_ids)
   version         = var.eks_version
@@ -19,7 +20,8 @@ resource "aws_eks_node_group" "eks_node_group" {
   }
 
   tags = {
-    Name        = "${var.environment}-eks-node-group"
+    # Name        = "${var.environment}-eks-node-group"
+    Name        = "pod10-${var.environment}-eks-node-group"
     Environment = var.environment
   }
 

@@ -10,7 +10,8 @@ data "aws_route_table" "default-route-table" {
 resource "aws_ec2_tag" "tag_default_route_table" {
   resource_id = data.aws_route_table.default-route-table.id
   key         = "Name"
-  value       = "${var.environment}-public-route-table"
+  # value       = "${var.environment}-public-route-table"
+  value       = "pod10-${var.environment}-public-route-table"
 }
 # associate the default route table with the VPC
 resource "aws_main_route_table_association" "main" {

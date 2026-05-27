@@ -5,6 +5,7 @@ resource "helm_release" "nginx_ingress" {
   version          = "4.10.0"
   namespace        = "ingress-nginx"
   create_namespace = true
+  timeout          = 900
 
   set {
     name  = "controller.service.type"

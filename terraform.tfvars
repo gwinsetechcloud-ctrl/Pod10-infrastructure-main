@@ -22,14 +22,14 @@ label_one      = "system-nodepool"
 repository_name = "eks-repository"
 
 # Database
-db_name              = "pod13fintech_db"
+db_name              = "pod10fintech_db"
 db_instance_class    = "db.t3.micro"
 db_allocated_storage = 20
 
 # DNS
-domain-name = "pod13fintech.online"
-zone_name   = "pod13fintech.online"
-email       = "elizabethik135@gmail.com"
+domain-name = "gwinseapptest.online"
+zone_name   = "gwinseapptest.online"
+email       = "gwinsetech@gmail.com"
 
 aws_region = "us-east-1"
 # Sensitive values — stored in GitHub Actions secrets
