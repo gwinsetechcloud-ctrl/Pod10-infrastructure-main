@@ -11,10 +11,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - argocd.gwinseapptest.online
-    secretName: argocd-gwinseapptest-online
+    - argocd.cohort5pod10.online
+    secretName: argocd-cohort5pod10-online
   rules:
-  - host: argocd.gwinseapptest.online
+  - host: argocd.cohort5pod10.online
     http:
       paths:
       - path: /

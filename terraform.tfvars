@@ -27,8 +27,8 @@ db_instance_class    = "db.t3.micro"
 db_allocated_storage = 20
 
 # DNS
-domain-name = "gwinseapptest.online"
-zone_name   = "gwinseapptest.online"
+domain-name = "cohort5pod10.online"
+zone_name   = "cohort5pod10.online"
 email       = "gwinsetech@gmail.com"
 
 aws_region = "us-east-1"

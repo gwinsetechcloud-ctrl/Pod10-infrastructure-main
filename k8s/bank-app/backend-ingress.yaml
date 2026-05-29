@@ -10,10 +10,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - bankapi.gwinseapptest.online
-      secretName: bankapi-gwinseapptest-online
+        - bankapi.cohort5pod10.online
+      secretName: bankapi-cohort5pod10-online
   rules:
-    - host: bankapi.gwinseapptest.online
+    - host: bankapi.cohort5pod10.online
       http:
         paths:
           - path: /

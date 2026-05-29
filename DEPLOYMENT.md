@@ -1,12 +1,12 @@
 # Pod10 Bank App — Deployment Guide
 
-Wire-up between **infrastructure**, **backend**, and **frontend** for `gwinseapptest.online`.
+Wire-up between **infrastructure**, **backend**, and **frontend** for `cohort5pod10.online`.
 
 | Component | URL | ECR repository |
 |-----------|-----|----------------|
-| Frontend | https://bank.gwinseapptest.online | `bank-frontend` |
-| Backend API | https://bankapi.gwinseapptest.online | `bank-backendapi` |
-| ArgoCD | https://argocd.gwinseapptest.online | — |
+| Frontend | https://bank.cohort5pod10.online | `bank-frontend` |
+| Backend API | https://bankapi.cohort5pod10.online | `bank-backendapi` |
+| ArgoCD | https://argocd.cohort5pod10.online | — |
 
 Kubernetes manifests live in [`k8s/bank-app/`](k8s/bank-app/). **Argo CD** deploys and syncs them from Git ([`k8s/argocd/application-bank-app.yaml`](k8s/argocd/application-bank-app.yaml)).
 
@@ -15,7 +15,7 @@ Kubernetes manifests live in [`k8s/bank-app/`](k8s/bank-app/). **Argo CD** deplo
 ## 1. Prerequisites
 
 - Terraform stack applied (`Pod10-infrastructure-main`)
-- Route53 nameservers for `gwinseapptest.online` pointed at AWS (from `terraform output route53_name_servers`)
+- Route53 nameservers for `cohort5pod10.online` pointed at AWS (from `terraform output route53_name_servers`)
 - `kubectl` access to cluster `pod10-dev-eks-cluster` in `us-east-1`
 - cert-manager + nginx ingress running (from Terraform Helm)
 - Argo CD installed in namespace `argocd`
@@ -93,7 +93,7 @@ kubectl apply -f ClusterIssuer.yaml
 
 ### Argo CD UI
 
-- **URL:** https://argocd.gwinseapptest.online
+- **URL:** https://argocd.cohort5pod10.online
 - **Username:** `admin`
 - **Password (first login):**
 
@@ -153,11 +153,11 @@ flowchart LR
 
 ```bash
 kubectl get pods,ingress -n bank-app
-curl -I https://bankapi.gwinseapptest.online/api/user/login
-curl -I https://bank.gwinseapptest.online
+curl -I https://bankapi.cohort5pod10.online/api/user/login
+curl -I https://bank.cohort5pod10.online
 ```
 
-Open https://bank.gwinseapptest.online and test login/register.
+Open https://bank.cohort5pod10.online and test login/register.
 
 ---
 
@@ -165,8 +165,8 @@ Open https://bank.gwinseapptest.online and test login/register.
 
 | Issue | Check |
 |-------|--------|
-| Frontend loads but API fails | Browser network tab; API must be `https://bankapi.gwinseapptest.online` |
-| CORS errors | `CORS_ALLOWED_ORIGIN` in ConfigMap = `https://bank.gwinseapptest.online` |
+| Frontend loads but API fails | Browser network tab; API must be `https://bankapi.cohort5pod10.online` |
+| CORS errors | `CORS_ALLOWED_ORIGIN` in ConfigMap = `https://bank.cohort5pod10.online` |
 | Backend crash loop | `kubectl logs -n bank-app deploy/bank-backend-deployment`; verify RDS security group allows EKS nodes |
 | TLS not issued | `kubectl describe certificate -n bank-app`; cert-manager logs |
 | Image pull errors | ECR image exists; node IAM can pull from ECR |

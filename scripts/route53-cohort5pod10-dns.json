@@ -1,0 +1,32 @@
+{
+  "Comment": "Pod10 cohort5pod10.online app records",
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "bank.cohort5pod10.online",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [{ "Value": "a8812f2775cac4ddaa8e252a8bb8c6cd-518588295.us-east-1.elb.amazonaws.com" }]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "bankapi.cohort5pod10.online",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [{ "Value": "a8812f2775cac4ddaa8e252a8bb8c6cd-518588295.us-east-1.elb.amazonaws.com" }]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "argocd.cohort5pod10.online",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [{ "Value": "a8812f2775cac4ddaa8e252a8bb8c6cd-518588295.us-east-1.elb.amazonaws.com" }]
+      }
+    }
+  ]
+}

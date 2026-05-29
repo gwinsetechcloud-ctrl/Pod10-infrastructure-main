@@ -4,7 +4,7 @@ server:
   ingress:
     enabled: true
     ingressClassName: nginx
-    hostname: argocd.gwinseapptest.online
+    hostname: argocd.cohort5pod10.online
     tls: true
     annotations:
       cert-manager.io/cluster-issuer: http-01-production
