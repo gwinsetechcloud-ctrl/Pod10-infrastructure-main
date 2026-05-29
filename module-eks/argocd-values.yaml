@@ -1,20 +1,15 @@
 server:
   extraArgs:
     - --insecure
-
   ingress:
     enabled: true
-    ingressClassName: external-nginx
-    hosts:
-      - argocd.gwinseapptest.online
-    tls:
-      - secretName: argocd-gwinseapptest-online
-        hosts:
-          - argocd.gwinseapptest.online
+    ingressClassName: nginx
+    hostname: argocd.gwinseapptest.online
+    tls: true
+    annotations:
+      cert-manager.io/cluster-issuer: http-01-production
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
 configs:
   params:
     server.insecure: true
-
-# How to get ArgoCD admin password after deployment:
-# kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d

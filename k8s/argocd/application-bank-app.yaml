@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pod10-bank-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/gwinsetechcloud-ctrl/Pod10-infrastructure-main.git
+    targetRevision: main
+    path: k8s/bank-app
+    directory:
+      recurse: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: bank-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false

@@ -8,7 +8,7 @@ Wire-up between **infrastructure**, **backend**, and **frontend** for `gwinseapp
 | Backend API | https://bankapi.gwinseapptest.online | `bank-backendapi` |
 | ArgoCD | https://argocd.gwinseapptest.online | — |
 
-Kubernetes manifests live in [`k8s/bank-app/`](k8s/bank-app/).
+Kubernetes manifests live in [`k8s/bank-app/`](k8s/bank-app/). **Argo CD** deploys and syncs them from Git ([`k8s/argocd/application-bank-app.yaml`](k8s/argocd/application-bank-app.yaml)).
 
 ---
 
@@ -16,8 +16,9 @@ Kubernetes manifests live in [`k8s/bank-app/`](k8s/bank-app/).
 
 - Terraform stack applied (`Pod10-infrastructure-main`)
 - Route53 nameservers for `gwinseapptest.online` pointed at AWS (from `terraform output route53_name_servers`)
-- `kubectl` access to cluster `eks-cluster` in `us-east-1`
+- `kubectl` access to cluster `pod10-dev-eks-cluster` in `us-east-1`
 - cert-manager + nginx ingress running (from Terraform Helm)
+- Argo CD installed in namespace `argocd`
 
 ---
 
@@ -88,7 +89,45 @@ kubectl apply -f ClusterIssuer.yaml
 
 ---
 
-## 4. Build & deploy flow
+## 4. Argo CD (GitOps deploy)
+
+### Argo CD UI
+
+- **URL:** https://argocd.gwinseapptest.online
+- **Username:** `admin`
+- **Password (first login):**
+
+```bash
+aws eks update-kubeconfig --name pod10-dev-eks-cluster --region us-east-1
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+
+Change the password after first login in the UI.
+
+### Application
+
+| Argo CD Application | Git path | Namespace |
+|---------------------|----------|-----------|
+| `pod10-bank-app` | `k8s/bank-app/` on `main` | `bank-app` |
+
+**Sync policy:** automated with prune + self-heal. When CI updates image tags in Git, Argo CD deploys within ~3 minutes.
+
+### One-time bootstrap (if Argo CD is not installed)
+
+GitHub Actions → **Bootstrap Argo CD** → Run workflow, or:
+
+```bash
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -f k8s/argocd/ingress-argocd-server.yaml
+kubectl apply -f k8s/argocd/application-bank-app.yaml
+```
+
+`bank-backend-secret` is **not** in Git — create it once manually (see §3.2). Argo CD will not remove it.
+
+---
+
+## 5. Build & deploy flow (with Argo CD)
 
 ```mermaid
 flowchart LR
@@ -97,27 +136,20 @@ flowchart LR
     BE[Backend push]
     FE --> ECR1[ECR bank-frontend]
     BE --> ECR2[ECR bank-backendapi]
-    ECR1 --> MANI[Update k8s manifests in infra repo]
+    ECR1 --> MANI[Update k8s/bank-app in infra repo]
     ECR2 --> MANI
   end
-  MANI --> DEPLOY[deploy-bank-app workflow]
-  DEPLOY --> EKS[EKS bank-app namespace]
+  MANI --> ARGO[Argo CD auto-sync]
+  ARGO --> EKS[EKS bank-app namespace]
 ```
 
-1. Push to **backend** `main` → builds image → updates `k8s/bank-app/backend-deployment.yaml` image tag in infra repo.
-2. Push to **frontend** `main` → builds image → updates `k8s/bank-app/frontend-deployment.yaml` image tag.
-3. Run **Deploy Bank App to EKS** workflow on `Pod10-infrastructure-main` (Actions → Deploy Bank App to EKS → Run workflow).
-
-Or apply locally:
-
-```bash
-aws eks update-kubeconfig --name eks-cluster --region us-east-1
-kubectl apply -f k8s/bank-app/
-```
+1. Push to **backend** or **frontend** `main` → CI builds image → updates deployment YAML in **Pod10-infrastructure-main**.
+2. **Argo CD** detects the Git change and syncs the cluster automatically.
+3. Monitor in the Argo CD UI or: `kubectl get application pod10-bank-app -n argocd`
 
 ---
 
-## 5. Verify
+## 6. Verify
 
 ```bash
 kubectl get pods,ingress -n bank-app
@@ -129,7 +161,7 @@ Open https://bank.gwinseapptest.online and test login/register.
 
 ---
 
-## 6. Troubleshooting
+## 7. Troubleshooting
 
 | Issue | Check |
 |-------|--------|
@@ -141,7 +173,7 @@ Open https://bank.gwinseapptest.online and test login/register.
 
 ---
 
-## 7. Repositories
+## 8. Repositories
 
 - https://github.com/gwinsetechcloud-ctrl/Pod10-infrastructure-main
 - https://github.com/gwinsetechcloud-ctrl/Pod10-main-bank-app-frontend
