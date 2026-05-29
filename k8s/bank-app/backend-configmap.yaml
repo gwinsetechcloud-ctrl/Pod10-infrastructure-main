@@ -5,7 +5,7 @@ metadata:
   namespace: bank-app
 data:
   # After terraform apply: terraform output -raw rds_endpoint (strip :3306 if present)
-  DB_HOST: "REPLACE_WITH_RDS_ENDPOINT"
+  DB_HOST: "dev-mysql-db.cmh44g0yo4b9.us-east-1.rds.amazonaws.com"
   DB_PORT: "3306"
   DB_NAME: "pod10fintech_db"
   CORS_ALLOWED_ORIGIN: "https://bank.gwinseapptest.online"
