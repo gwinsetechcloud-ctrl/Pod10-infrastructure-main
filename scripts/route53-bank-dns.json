@@ -1,0 +1,31 @@
+{
+  "Comment": "Bank app DNS for Pod10",
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "bank.gwinseapptest.online",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "a8812f2775cac4ddaa8e252a8bb8c6cd-518588295.us-east-1.elb.amazonaws.com"
+          }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "bankapi.gwinseapptest.online",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "a8812f2775cac4ddaa8e252a8bb8c6cd-518588295.us-east-1.elb.amazonaws.com"
+          }
+        ]
+      }
+    }
+  ]
+}
