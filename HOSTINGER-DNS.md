@@ -15,11 +15,13 @@ terraform output route53_name_servers
 In **Hostinger** → **Domains** → **cohort5pod10.online** → **DNS / Nameservers**:
 
 1. Choose **Custom nameservers** (not Hostinger default DNS).
-2. Enter all four Route53 nameservers (example format):
-   - `ns-xxx.awsdns-xx.com`
-   - `ns-xxx.awsdns-xx.net`
-   - `ns-xxx.awsdns-xx.org`
-   - `ns-xxx.awsdns-xx.co.uk`
+2. Enter these Route53 nameservers for **cohort5pod10.online**:
+   - `ns-1320.awsdns-37.org`
+   - `ns-369.awsdns-46.com`
+   - `ns-756.awsdns-30.net`
+   - `ns-1892.awsdns-44.co.uk`
+
+   (After a future `terraform apply`, run `terraform output route53_name_servers` and use those if they differ.)
 
 Save and wait for propagation (often 15 minutes–48 hours).
 
