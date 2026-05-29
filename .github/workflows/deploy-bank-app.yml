@@ -1,0 +1,46 @@
+name: Deploy Bank App to EKS
+
+on:
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-east-1
+  EKS_CLUSTER_NAME: eks-cluster
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Configure kubectl for EKS
+        run: |
+          aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+
+      - name: Apply ClusterIssuer (if not present)
+        continue-on-error: true
+        run: kubectl apply -f ClusterIssuer.yaml
+
+      - name: Deploy bank-app manifests
+        run: |
+          kubectl apply -f k8s/bank-app/namespace.yaml
+          kubectl apply -f k8s/bank-app/backend-configmap.yaml
+          kubectl apply -f k8s/bank-app/backend-deployment.yaml
+          kubectl apply -f k8s/bank-app/backend-service.yaml
+          kubectl apply -f k8s/bank-app/backend-ingress.yaml
+          kubectl apply -f k8s/bank-app/frontend-deployment.yaml
+          kubectl apply -f k8s/bank-app/frontend-service.yaml
+          kubectl apply -f k8s/bank-app/frontend-ingress.yaml
+
+      - name: Wait for rollouts
+        run: |
+          kubectl rollout status deployment/bank-backend-deployment -n bank-app --timeout=300s
+          kubectl rollout status deployment/bank-frontend-deployment -n bank-app --timeout=300s

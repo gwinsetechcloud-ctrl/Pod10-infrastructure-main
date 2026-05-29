@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bank-frontend-deployment
+  namespace: bank-app
+  labels:
+    app: bank-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bank-frontend
+  template:
+    metadata:
+      labels:
+        app: bank-frontend
+    spec:
+      containers:
+        - name: bank-frontend
+          image: REPLACE_ECR_REGISTRY/bank-frontend:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
