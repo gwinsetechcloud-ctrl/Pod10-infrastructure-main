@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: bank-frontend
-          image: REPLACE_ECR_REGISTRY/bank-frontend:latest
+          image: 900515855079.dkr.ecr.us-east-1.amazonaws.com/bank-frontend:3
           ports:
             - containerPort: 80
           resources:
